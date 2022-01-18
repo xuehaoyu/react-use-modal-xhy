@@ -11,6 +11,7 @@ interface IState {
 
 export default class ModalProvider extends React.Component<IProps, IState> {
   private modalId: number = 0
+  private list: any = {}
   constructor(props: IProps) {
     super(props)
     this.state = {
@@ -19,35 +20,21 @@ export default class ModalProvider extends React.Component<IProps, IState> {
   }
 
   handleClose = (id: number) => {
-    const resultArr: any = []
-    this.state.list.forEach((item: any) => {
-      if (id !== item.id) {
-        resultArr.push(item)
-      }
-    })
-    this.setState({
-      list: resultArr
-    })
+    this.list[id].show = false
   }
 
   handleCloseAll = () => {
-    this.setState({
-      list: []
-    })
+    this.list = {}
   }
 
   handleShow = (modal: any) => {
     if (modal) {
       this.modalId++
-      const resultArr: any = [...this.state.list]
-      resultArr.push({
+      this.list[this.modalId] = {
         id: this.modalId,
         show: true,
         Modal: modal
-      })
-      this.setState({
-        list: resultArr
-      })
+      }
     }
   }
 
@@ -64,7 +51,10 @@ export default class ModalProvider extends React.Component<IProps, IState> {
         }}
       >
         {children}
-        {list.map((item: any) => (<item.Modal show={item.show} id={item.id} />))}
+        {Object.keys(this.list).forEach((key) => {
+          const item: any = this.list[key]
+          return <item.Modal show={item.show} id={item.id} ></item.Modal>
+        })}
       </Provider>
     )
   }

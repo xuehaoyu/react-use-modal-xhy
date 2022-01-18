@@ -7,6 +7,7 @@ interface IState {
 }
 export default class ModalProvider extends React.Component<IProps, IState> {
     private modalId;
+    private list;
     constructor(props: IProps);
     handleClose: (id: number) => void;
     handleCloseAll: () => void;

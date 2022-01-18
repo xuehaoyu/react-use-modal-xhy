@@ -9,34 +9,21 @@ class ModalProvider extends react_1.default.Component {
     constructor(props) {
         super(props);
         this.modalId = 0;
+        this.list = {};
         this.handleClose = (id) => {
-            const resultArr = [];
-            this.state.list.forEach((item) => {
-                if (id !== item.id) {
-                    resultArr.push(item);
-                }
-            });
-            this.setState({
-                list: resultArr
-            });
+            this.list[id].show = false;
         };
         this.handleCloseAll = () => {
-            this.setState({
-                list: []
-            });
+            this.list = {};
         };
         this.handleShow = (modal) => {
             if (modal) {
                 this.modalId++;
-                const resultArr = [...this.state.list];
-                resultArr.push({
+                this.list[this.modalId] = {
                     id: this.modalId,
                     show: true,
                     Modal: modal
-                });
-                this.setState({
-                    list: resultArr
-                });
+                };
             }
         };
         this.state = {
@@ -53,7 +40,10 @@ class ModalProvider extends react_1.default.Component {
                 closeAllModal: this.handleCloseAll
             } },
             children,
-            list.map((item) => (react_1.default.createElement(item.Modal, { show: item.show, id: item.id })))));
+            Object.keys(this.list).forEach((key) => {
+                const item = this.list[key];
+                return react_1.default.createElement(item.Modal, { show: item.show, id: item.id });
+            })));
     }
 }
 exports.default = ModalProvider;
