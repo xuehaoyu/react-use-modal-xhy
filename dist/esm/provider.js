@@ -3,38 +3,52 @@ import ModalContext from './context';
 export default class ModalProvider extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClose = () => {
+        this.modalId = 0;
+        this.handleClose = (id) => {
+            const resultArr = [];
+            this.state.list.forEach((item) => {
+                if (id !== item.id) {
+                    resultArr.push(item);
+                }
+            });
             this.setState({
-                show: false
+                list: resultArr
+            });
+        };
+        this.handleCloseAll = () => {
+            this.setState({
+                list: []
             });
         };
         this.handleShow = (modal) => {
-            console.log('modal____', modal);
-            this.setState({
-                show: true
-            });
             if (modal) {
-                this.setState({
+                this.modalId++;
+                const resultArr = [...this.state.list];
+                resultArr.push({
+                    id: this.modalId,
+                    show: true,
                     Modal: modal
+                });
+                this.setState({
+                    list: resultArr
                 });
             }
         };
         this.state = {
-            show: true,
-            Modal: null
+            list: [],
         };
     }
     render() {
-        const { show, Modal } = this.state;
+        const { list } = this.state;
         const { children } = this.props;
         const { Provider } = ModalContext;
         return (React.createElement(Provider, { value: {
-                show,
                 showModal: this.handleShow,
-                closeModal: this.handleClose
+                closeModal: this.handleClose,
+                closeAllModal: this.handleCloseAll
             } },
             children,
-            Modal && React.createElement(Modal, { show: show })));
+            list.map((item) => (React.createElement(item.Modal, { show: item.show, id: item.id })))));
     }
 }
 //# sourceMappingURL=provider.js.map

@@ -3,12 +3,13 @@ interface IProps {
     children: any;
 }
 interface IState {
-    show: boolean;
-    Modal: any;
+    list: any[];
 }
 export default class ModalProvider extends React.Component<IProps, IState> {
+    private modalId;
     constructor(props: IProps);
-    handleClose: () => void;
+    handleClose: (id: number) => void;
+    handleCloseAll: () => void;
     handleShow: (modal: any) => void;
     render(): JSX.Element;
 }

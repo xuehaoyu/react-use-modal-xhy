@@ -8,38 +8,52 @@ const context_1 = __importDefault(require("./context"));
 class ModalProvider extends react_1.default.Component {
     constructor(props) {
         super(props);
-        this.handleClose = () => {
+        this.modalId = 0;
+        this.handleClose = (id) => {
+            const resultArr = [];
+            this.state.list.forEach((item) => {
+                if (id !== item.id) {
+                    resultArr.push(item);
+                }
+            });
             this.setState({
-                show: false
+                list: resultArr
+            });
+        };
+        this.handleCloseAll = () => {
+            this.setState({
+                list: []
             });
         };
         this.handleShow = (modal) => {
-            console.log('modal____', modal);
-            this.setState({
-                show: true
-            });
             if (modal) {
-                this.setState({
+                this.modalId++;
+                const resultArr = [...this.state.list];
+                resultArr.push({
+                    id: this.modalId,
+                    show: true,
                     Modal: modal
+                });
+                this.setState({
+                    list: resultArr
                 });
             }
         };
         this.state = {
-            show: true,
-            Modal: null
+            list: [],
         };
     }
     render() {
-        const { show, Modal } = this.state;
+        const { list } = this.state;
         const { children } = this.props;
         const { Provider } = context_1.default;
         return (react_1.default.createElement(Provider, { value: {
-                show,
                 showModal: this.handleShow,
-                closeModal: this.handleClose
+                closeModal: this.handleClose,
+                closeAllModal: this.handleCloseAll
             } },
             children,
-            Modal && react_1.default.createElement(Modal, { show: show })));
+            list.map((item) => (react_1.default.createElement(item.Modal, { show: item.show, id: item.id })))));
     }
 }
 exports.default = ModalProvider;
