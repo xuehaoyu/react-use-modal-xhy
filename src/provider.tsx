@@ -6,25 +6,31 @@ interface IProps {
 }
 
 interface IState {
-  list: any[];
+  listArr: any[]
 }
 
 export default class ModalProvider extends React.Component<IProps, IState> {
   private modalId: number = 0
   private list: any = {}
-  constructor(props: IProps) {
+  constructor (props: IProps) {
     super(props)
     this.state = {
-      list: [],
+      listArr: []
     }
   }
 
   handleClose = (id: number) => {
-    this.list[id].show = false
+    delete this.list[id]
+    this.setState({
+      listArr: Object.keys(this.list)
+    })
   }
 
   handleCloseAll = () => {
     this.list = {}
+    this.setState({
+      listArr: []
+    })
   }
 
   handleShow = (modal: any) => {
@@ -35,12 +41,13 @@ export default class ModalProvider extends React.Component<IProps, IState> {
         show: true,
         Modal: modal
       }
-      console.log(' this.list_____', this.list)
+      this.setState({
+        listArr: Object.keys(this.list)
+      })
     }
   }
 
-  render() {
-    const { list } = this.state
+  render () {
     const { children } = this.props
     const { Provider } = ModalContext
     return (
@@ -52,9 +59,9 @@ export default class ModalProvider extends React.Component<IProps, IState> {
         }}
       >
         {children}
-        {Object.keys(this.list).forEach((key) => {
+        {this.state.listArr.map((key) => {
           const item: any = this.list[key]
-          return <item.Modal show={item.show} id={item.id} ></item.Modal>
+          return <item.Modal key={item.id} show={item.show} id={item.id} ></item.Modal>
         })}
       </Provider>
     )

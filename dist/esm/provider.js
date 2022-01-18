@@ -6,10 +6,16 @@ export default class ModalProvider extends React.Component {
         this.modalId = 0;
         this.list = {};
         this.handleClose = (id) => {
-            this.list[id].show = false;
+            delete this.list[id];
+            this.setState({
+                listArr: Object.keys(this.list)
+            });
         };
         this.handleCloseAll = () => {
             this.list = {};
+            this.setState({
+                listArr: []
+            });
         };
         this.handleShow = (modal) => {
             if (modal) {
@@ -19,14 +25,16 @@ export default class ModalProvider extends React.Component {
                     show: true,
                     Modal: modal
                 };
+                this.setState({
+                    listArr: Object.keys(this.list)
+                });
             }
         };
         this.state = {
-            list: [],
+            listArr: []
         };
     }
     render() {
-        const { list } = this.state;
         const { children } = this.props;
         const { Provider } = ModalContext;
         return (React.createElement(Provider, { value: {
@@ -35,9 +43,9 @@ export default class ModalProvider extends React.Component {
                 closeAllModal: this.handleCloseAll
             } },
             children,
-            Object.keys(this.list).forEach((key) => {
+            this.state.listArr.map((key) => {
                 const item = this.list[key];
-                return React.createElement(item.Modal, { show: item.show, id: item.id });
+                return React.createElement(item.Modal, { key: item.id, show: item.show, id: item.id });
             })));
     }
 }

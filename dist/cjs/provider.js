@@ -11,10 +11,16 @@ class ModalProvider extends react_1.default.Component {
         this.modalId = 0;
         this.list = {};
         this.handleClose = (id) => {
-            this.list[id].show = false;
+            delete this.list[id];
+            this.setState({
+                listArr: Object.keys(this.list)
+            });
         };
         this.handleCloseAll = () => {
             this.list = {};
+            this.setState({
+                listArr: []
+            });
         };
         this.handleShow = (modal) => {
             if (modal) {
@@ -24,14 +30,16 @@ class ModalProvider extends react_1.default.Component {
                     show: true,
                     Modal: modal
                 };
+                this.setState({
+                    listArr: Object.keys(this.list)
+                });
             }
         };
         this.state = {
-            list: [],
+            listArr: []
         };
     }
     render() {
-        const { list } = this.state;
         const { children } = this.props;
         const { Provider } = context_1.default;
         return (react_1.default.createElement(Provider, { value: {
@@ -40,9 +48,9 @@ class ModalProvider extends react_1.default.Component {
                 closeAllModal: this.handleCloseAll
             } },
             children,
-            Object.keys(this.list).forEach((key) => {
+            this.state.listArr.map((key) => {
                 const item = this.list[key];
-                return react_1.default.createElement(item.Modal, { show: item.show, id: item.id });
+                return react_1.default.createElement(item.Modal, { key: item.id, show: item.show, id: item.id });
             })));
     }
 }

@@ -3,7 +3,7 @@ interface IProps {
     children: any;
 }
 interface IState {
-    list: any[];
+    listArr: any[];
 }
 export default class ModalProvider extends React.Component<IProps, IState> {
     private modalId;
