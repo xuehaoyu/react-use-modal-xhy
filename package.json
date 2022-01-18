@@ -1,0 +1,35 @@
+{
+  "name": "react-use-modal-xhy",
+  "version": "1.0.0",
+  "description": "react modal use",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "build": "npm run build:esm & npm run build:cjs",
+    "build:esm": "tsc --module es2015 --target es2015 --outDir dist/esm",
+    "build:cjs": "tsc --module commonjs --target es2015 --outDir dist/cjs",
+    "test": "jest --no-cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuehaoyu/react-use-modal-xhy.git"
+  },
+  "keywords": [
+    "react",
+    "modal",
+    "hook"
+  ],
+  "author": "xuehaoyu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xuehaoyu/react-use-modal-xhy/issues"
+  },
+  "homepage": "https://github.com/xuehaoyu/react-use-modal-xhy#readme",
+  "dependencies": {
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.38",
+    "typescript": "^4.5.4"
+  }
+}
