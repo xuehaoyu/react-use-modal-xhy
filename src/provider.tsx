@@ -35,6 +35,7 @@ export default class ModalProvider extends React.Component<IProps, IState> {
         show: true,
         Modal: modal
       }
+      console.log(' this.list_____', this.list)
     }
   }
 
