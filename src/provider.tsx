@@ -6,51 +6,65 @@ interface IProps {
 }
 
 interface IState {
-  show: boolean;
-  Modal: any;
+  list: any[];
 }
 
 export default class ModalProvider extends React.Component<IProps, IState> {
-  constructor (props: IProps) {
+  private modalId: number = 0
+  constructor(props: IProps) {
     super(props)
     this.state = {
-      show: true,
-      Modal: null
+      list: [],
     }
   }
 
-  handleClose = () => {
+  handleClose = (id: number) => {
+    const resultArr: any = []
+    this.state.list.forEach((item: any) => {
+      if (id !== item.id) {
+        resultArr.push(item)
+      }
+    })
     this.setState({
-      show: false
+      list: resultArr
+    })
+  }
+
+  handleCloseAll = () => {
+    this.setState({
+      list: []
     })
   }
 
   handleShow = (modal: any) => {
-    console.log('modal____', modal)
-    this.setState({
-      show: true
-    })
     if (modal) {
-      this.setState({
+      this.modalId++
+      const resultArr: any = [...this.state.list]
+      resultArr.push({
+        id: this.modalId,
+        show: true,
         Modal: modal
+      })
+      this.setState({
+        list: resultArr
       })
     }
   }
 
-  render () {
-    const { show, Modal } = this.state
+  render() {
+    const { list } = this.state
     const { children } = this.props
     const { Provider } = ModalContext
     return (
       <Provider
         value={{
-          show,
           showModal: this.handleShow,
-          closeModal: this.handleClose
+          closeModal: this.handleClose,
+          closeAllModal: this.handleCloseAll
         }}
       >
         {children}
-        {Modal && <Modal show={show} />}
+        {list.map((item: any) => (<item.Modal show={item.show} id={item.id} />))}
       </Provider>
     )
   }
