@@ -25,7 +25,8 @@
     "url": "https://github.com/xuehaoyu/react-use-modal-xhy/issues"
   },
   "homepage": "https://github.com/xuehaoyu/react-use-modal-xhy#readme",
-  "dependencies": {
+  "dependencies": {},
+  "peerDependencies": {
     "react": "^17.0.2"
   },
   "devDependencies": {
