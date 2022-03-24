@@ -2,7 +2,7 @@ import React from 'react'
 import ModalContext from './context'
 
 interface useModalRes {
-  showModal: ({ id, show }: any) => JSX.Element,
+  showModal: ({ id, show }: any) => void,
   closeModal: (id: number) => void,
   closeAllModal: () => void,
 }
