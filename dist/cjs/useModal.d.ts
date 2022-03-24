@@ -1,7 +1,7 @@
 interface useModalRes {
     showModal: any;
-    closeModal: any;
-    closeAllModal: any;
+    closeModal: (id: number) => void;
+    closeAllModal: () => void;
 }
 export default function useModal(): useModalRes;
 export {};

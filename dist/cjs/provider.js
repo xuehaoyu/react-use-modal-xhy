@@ -11,7 +11,7 @@ class ModalProvider extends react_1.default.Component {
         this.modalId = 0;
         this.list = {};
         this.handleClose = (id) => {
-            this.list[id].show = false;
+            delete this.list[id];
             this.setState({
                 listArr: Object.keys(this.list)
             });
@@ -50,6 +50,7 @@ class ModalProvider extends react_1.default.Component {
             children,
             this.state.listArr.map((key) => {
                 const item = this.list[key];
+                console.log('item.Modal____', item.Modal);
                 return react_1.default.createElement(item.Modal, { key: item.id, show: item.show, id: item.id });
             })));
     }
