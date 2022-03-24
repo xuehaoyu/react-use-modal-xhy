@@ -1,6 +1,5 @@
-/// <reference types="react" />
 interface useModalRes {
-    showModal: ({ id, show }: any) => JSX.Element;
+    showModal: ({ id, show }: any) => void;
     closeModal: (id: number) => void;
     closeAllModal: () => void;
 }
