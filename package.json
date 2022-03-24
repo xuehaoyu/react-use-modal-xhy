@@ -1,6 +1,6 @@
 {
   "name": "react-use-modal-xhy",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "react modal use",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

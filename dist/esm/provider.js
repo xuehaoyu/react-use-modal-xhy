@@ -6,7 +6,7 @@ export default class ModalProvider extends React.Component {
         this.modalId = 0;
         this.list = {};
         this.handleClose = (id) => {
-            delete this.list[id];
+            this.list[id].show = false;
             this.setState({
                 listArr: Object.keys(this.list)
             });

@@ -1,10 +1,15 @@
 import React from 'react'
 import ModalContext from './context'
 
-export default function useModal() {
-  return React.useContext(ModalContext) as {
-    showModal: ({ id }: any) => void,
-    closeModal: (id: number) => void,
-    closeAllModal: () => void,
-  }
+interface useModalRes {
+  showModal: ({ id, show }: {
+    id: number,
+    show: number
+  }) => React.Component,
+  closeModal: (id: number) => void,
+  closeAllModal: () => void,
+}
+
+export default function useModal(): useModalRes {
+  return React.useContext(ModalContext)
 }

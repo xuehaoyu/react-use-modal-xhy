@@ -11,7 +11,7 @@ class ModalProvider extends react_1.default.Component {
         this.modalId = 0;
         this.list = {};
         this.handleClose = (id) => {
-            delete this.list[id];
+            this.list[id].show = false;
             this.setState({
                 listArr: Object.keys(this.list)
             });

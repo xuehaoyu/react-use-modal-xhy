@@ -41,8 +41,9 @@ const App = () => {
   const { showModal, closeModal } = useModal();
 
   function handleClick() {
-    showModal(({ id }) => (
+    showModal(({ id, show }) => (
       <Modal
+        visible={show}
         onCancel={() => {
           closeModal(id);
         }}

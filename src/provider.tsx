@@ -20,7 +20,7 @@ export default class ModalProvider extends React.Component<IProps, IState> {
   }
 
   handleClose = (id: number) => {
-    delete this.list[id]
+    this.list[id].show = false
     this.setState({
       listArr: Object.keys(this.list)
     })
