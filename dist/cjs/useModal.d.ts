@@ -1,5 +1,5 @@
 export default function useModal(): {
-    showModal: any;
-    closeModal: any;
-    closeAllModal: any;
+    showModal: ({ id }: any) => void;
+    closeModal: (id: number) => void;
+    closeAllModal: () => void;
 };
