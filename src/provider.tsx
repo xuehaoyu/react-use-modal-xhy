@@ -61,7 +61,6 @@ export default class ModalProvider extends React.Component<IProps, IState> {
         {children}
         {this.state.listArr.map((key) => {
           const item: any = this.list[key]
-          console.log('item.Modal____', item.Modal)
           return <item.Modal key={item.id} show={item.show} id={item.id} ></item.Modal>
         })}
       </Provider>
