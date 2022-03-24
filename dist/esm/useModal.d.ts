@@ -1,9 +1,6 @@
-import React from 'react';
+/// <reference types="react" />
 interface useModalRes {
-    showModal: ({ id, show }: {
-        id: number;
-        show: number;
-    }) => React.Component;
+    showModal: ({ id, show }: any) => JSX.Element;
     closeModal: (id: number) => void;
     closeAllModal: () => void;
 }
